@@ -27,6 +27,7 @@ include 'db/connect.php';
 	<link rel="stylesheet" href="assets/css/slick.css">
 	<link rel="stylesheet" href="assets/css/nice-select.css">
 	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/style1.css">
 </head>
 
 <body>
@@ -60,16 +61,33 @@ include 'db/connect.php';
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="index.php">Home</a></li>
-											<li><a href="upload.php">Upload</a></li>
-											<li><a href="login.php">Login</a></li>
-											<li><a href="signup.php">Sign Up</a></li>
+											
+											<?php
+											if (isset($_COOKIE["userId"])) {
+												echo '<span class="text-success">' . $_COOKIE["name"] . '</span>
+												<li><a href="index.php">Home</a></li>
+												';
+												echo '<li><a href="upload.php">Upload</a></li>';
+											} else {
+												echo '
+												<li><a href="index.php">Home</a></li>
+												<li><a href="login.php">Login</a></li>
+												<li><a href="signup.php">Sign Up</a></li>';
+											}
+											?>
 										</ul>
 									</nav>
 								</div>
-								<div class="header-right-btn f-right d-none d-lg-block ml-20">
-									<a href="logOut.php" class="border-btn header-btn">Log Out</a>
-								</div>
+								<?php
+								if (isset($_COOKIE["userId"])) {
+									echo '
+									<div class="header-right-btn f-right d-none d-lg-block ml-20">
+										<a href="db/logOut.php" class="border-btn header-btn">Log Out</a>
+									</div>
+									';
+								}
+								?>
+
 							</div>
 						</div>
 						<!-- Mobile Menu -->
@@ -89,14 +107,32 @@ include 'db/connect.php';
 
 		if ($_GET["type"] == 'true') {
 			echo '
-			<div class="alert alert-success alert-dismissible in">
+			<div class="toast m-3 text-center bg-white" role="alert" aria-live="assertive" aria-atomic="false" style="min-width: 200px;" data-delay="10000">
+				<div class="toast-header">
+					<span class="mdi mdi-message mdi-18px"></span>
+					<strong class="mr-auto ml-2">Alert</strong>
+					<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="toast-body p-4 text-success">
 				' . $_GET["msg"] . '
+				</div>
 			</div>
 			';
 		} elseif ($_GET["type"] == 'false') {
 			echo '
-			<div class="alert alert-danger alert-dismissible in">
+			<div class="toast m-3 text-center bg-white" role="alert" aria-live="assertive" aria-atomic="false" style="min-width: 200px;" data-delay="10000">
+				<div class="toast-header" style="padding: 5px;>
+					<span class="mdi mdi-message mdi-18px"></span>
+					<strong class="mr-auto ml-2">Alert</strong>
+					<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="toast-body p-4 text-danger">
 				' . $_GET["msg"] . '
+				</div>
 			</div>
 			';
 		}

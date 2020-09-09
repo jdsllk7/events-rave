@@ -15,22 +15,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $data = mysqli_query($conn, "SELECT * FROM users WHERE email='$email' AND password='$password'");
 
-        if ($email == 'admin@admin.com' && $password == 'admin') {
-            setcookie('admin', 'admin', time() + (86400 * 30), "/");
-            header('Location: index.php?msg=SUCCESS: Login Successful. Welcome Boss&type=true');
+        if (mysqli_num_rows($data) == 1) {
+
+            $user = mysqli_fetch_assoc($data);
+            setcookie('userId', $user['userId'], time() + (86400 * 30), "/");
+            setcookie('email', $user['email'], time() + (86400 * 30), "/");
+            setcookie('name', $user['name'], time() + (86400 * 30), "/");
+            setcookie('contact', $user['contact'], time() + (86400 * 30), "/");
+
+            header('Location: index.php?msg=SUCCESS: Login Successful&type=true');
         } else {
-
-            if (mysqli_num_rows($data) == 1) {
-
-                $user = mysqli_fetch_assoc($data);
-                setcookie('userId', $user['userId'], time() + (86400 * 30), "/");
-                setcookie('email', $user['email'], time() + (86400 * 30), "/");
-                setcookie('username', $user['username'], time() + (86400 * 30), "/");
-
-                header('Location: index.php?msg=SUCCESS: Login Successful&type=true');
-            } else {
-                header('Location: login.php?msg=ERROR: Incorrect Credentials&type=false');
-            }
+            header('Location: login.php?msg=ERROR: Incorrect Credentials&type=false');
         }
     }
 }

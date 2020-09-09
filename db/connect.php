@@ -4,7 +4,7 @@ $error_msg = 'Sorry could not connect to server...';
 $servername = 'localhost';
 $username = 'root';
 $password = '';
-$db = 'bid_db';
+$db = 'rave_db';
 
 // CREATE CONNECTION
 $conn = mysqli_connect($servername, $username, $password);
@@ -25,51 +25,26 @@ if (mysqli_query($conn, $sql)) {
 
 $sql = "CREATE TABLE IF NOT EXISTS users (
 	userId BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	username VARCHAR(200) NOT NULL,
+	name VARCHAR(200) NOT NULL,
 	email VARCHAR(200) NOT NULL,
+	contact VARCHAR(200) NOT NULL,
 	password VARCHAR(200) NOT NULL
 	)";
 // $sql = "DROP TABLE IF EXISTS users";
 mysqli_query($conn, $sql);
 
 
-$sql = "CREATE TABLE IF NOT EXISTS product (
+$sql = "CREATE TABLE IF NOT EXISTS events (
 	productId BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	pName VARCHAR(255),
-	pDescription VARCHAR(255),
-	pImage VARCHAR(255),
-	pQuantity VARCHAR(255),
-	pInitialCost VARCHAR(255),
-	bCountDown TIMESTAMP
-	)";
-// $sql = "DROP TABLE IF EXISTS product";
-mysqli_query($conn, $sql);
-
-
-$sql = "CREATE TABLE IF NOT EXISTS bid (
-	bidId BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	pBidCost VARCHAR(255),
-	username VARCHAR(255),
-	productId BIGINT UNSIGNED,
-	userId BIGINT(20),
-	FOREIGN KEY (productId) REFERENCES product(productId)
-	)";
-// $sql = "DROP TABLE IF EXISTS bid";
-mysqli_query($conn, $sql);
-
-
-$sql = "CREATE TABLE IF NOT EXISTS payments (
-	bidId BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	finalCost VARCHAR(255),
+	type VARCHAR(255),
+	name VARCHAR(255),
+	description VARCHAR(255),
 	address VARCHAR(255),
-	city VARCHAR(255),
-	country VARCHAR(255),
-	zip VARCHAR(255),
-	tel VARCHAR(255),
-	productId BIGINT UNSIGNED,
-	userId BIGINT UNSIGNED,
-	FOREIGN KEY (productId) REFERENCES product(productId),
-	FOREIGN KEY (userId) REFERENCES users(userId)
+	dateTime TIMESTAMP,
+	userId VARCHAR(255),
+	email VARCHAR(255),
+	companyName VARCHAR(255),
+	contact VARCHAR(255)
 	)";
-// $sql = "DROP TABLE IF EXISTS payments";
+// $sql = "DROP TABLE IF EXISTS events";
 mysqli_query($conn, $sql);

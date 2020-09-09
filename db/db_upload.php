@@ -4,26 +4,30 @@ include 'connect.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (
-      isset($_POST["pName"]) &&
-      isset($_POST["pDescription"]) &&
-      isset($_POST["pQuantity"]) &&
-      isset($_POST["pInitialCost"]) &&
-      isset($_POST["duration"]) &&
+      isset($_POST["type"]) &&
+      isset($_POST["name"]) &&
+      isset($_POST["description"]) &&
+      isset($_POST["address"]) &&
+      isset($_POST["dateTime"]) &&
 
-      !empty($_POST["pName"]) &&
-      !empty($_POST["pDescription"]) &&
-      !empty($_POST["pQuantity"]) &&
-      !empty($_POST["duration"]) &&
-      !empty($_POST["pInitialCost"])
+      !empty($_POST["type"]) &&
+      !empty($_POST["name"]) &&
+      !empty($_POST["description"]) &&
+      !empty($_POST["address"]) &&
+      !empty($_POST["dateTime"])
     ) {
 
-      $pName = $_POST["pName"];
-      $pDescription = $_POST["pDescription"];
-      $pQuantity = $_POST["pQuantity"];
-      $pInitialCost = $_POST["pInitialCost"];
-      $duration = $_POST["duration"];
+      $type = $_POST["type"];
+      $name = $_POST["name"];
+      $description = $_POST["description"];
+      $address = $_POST["address"];
+      $dateTime = $_POST["dateTime"];
+      $userId = $_COOKIE["userId"];
+      $email = $_COOKIE["email"];
+      $companyName = $_COOKIE["name"];
+      $contact = $_COOKIE["contact"];
 
-      $timestamp = date("Y-m-d H:i:s", strtotime($duration));
+      $timestamp = date("Y-m-d H:i:s", strtotime($dateTime));
 
       //pImages Validation
       $target_dir = "uploads/";
@@ -67,20 +71,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($uploadOk == 1) {
 
         //insert
-        $sql = "INSERT INTO product (
-        pName,
-        pDescription,
-        pImage,
-        pQuantity,
-        pInitialCost,
-        bCountDown
+        $sql = "INSERT INTO events (
+        type,
+        name,
+        description,
+        address,
+        dateTime,
+        userId,
+        email,
+        companyName,
+        contact
         ) VALUES (
-          '$pName',
-          '$pDescription',
-          '$target_file',
-          '$pQuantity',
-          '$pInitialCost',
-          '$timestamp'
+          '$type',
+          '$name',
+          '$description',
+          '$address',
+          '$dateTime',
+          '$userId',
+          '$email',
+          '$companyName',
+          '$contact'
           )";
 
         if (mysqli_query($conn, $sql)) {

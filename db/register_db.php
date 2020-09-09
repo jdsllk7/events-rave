@@ -3,36 +3,38 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (
-        isset($_POST["username"]) &&
+        isset($_POST["name"]) &&
         isset($_POST["email"]) &&
+        isset($_POST["contact"]) &&
         isset($_POST["password"]) &&
-        isset($_POST["repeatPassword"]) &&
 
-        !empty($_POST["username"]) &&
+        !empty($_POST["name"]) &&
         !empty($_POST["email"]) &&
-        !empty($_POST["password"]) &&
-        !empty($_POST["repeatPassword"])
+        !empty($_POST["contact"]) &&
+        !empty($_POST["password"])
     ) {
 
-        $username = $_POST["username"];
+        $name = $_POST["name"];
         $email = $_POST["email"];
+        $contact = $_POST["contact"];
         $password = $_POST["password"];
-        $repeatPassword = $_POST["repeatPassword"];
 
         //insert
         $sql = "INSERT INTO users (
-        username,
+        name,
         email,
+        contact,
         password
         ) VALUES (
-          '$username',
+          '$name',
           '$email',
+          '$contact',
           '$password'
           )";
 
         $data = mysqli_query($conn, "SELECT * from users WHERE email like '$email'");
 
-        if (mysqli_num_rows($data) == 0 && $repeatPassword == $password) {
+        if (mysqli_num_rows($data) == 0) {
 
             mysqli_query($conn, $sql); //run insert query
             $userId = mysqli_insert_id($conn);

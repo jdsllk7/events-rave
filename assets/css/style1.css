@@ -1,0 +1,8 @@
+.toast {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    position: fixed;
+    z-index: 9999;
+    box-shadow: 5px 5px 8px #f2f2f2;
+  }

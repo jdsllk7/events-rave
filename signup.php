@@ -1,4 +1,9 @@
-<?php include 'head.php'; ?>
+<?php 
+include 'head.php'; 
+if (isset($_COOKIE["userId"])) {
+	header('Location:index.php');
+}
+?>
 
 <main>
 
@@ -13,7 +18,8 @@
                         <h2 class="contact-title">Create Company Account</h2>
                     </div>
                     <div class="col-lg-8">
-                        <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                        <?php include 'db/register_db.php'; ?>
+                        <form method="post" class="form-contact contact_form" id="registerForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" autocomplete="on">
                             <div class="row">
 
                                 <div class="col-sm-12">
