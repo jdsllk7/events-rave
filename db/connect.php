@@ -35,16 +35,18 @@ mysqli_query($conn, $sql);
 
 
 $sql = "CREATE TABLE IF NOT EXISTS events (
-	productId BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	eventId BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	type VARCHAR(255),
 	name VARCHAR(255),
 	description VARCHAR(255),
 	address VARCHAR(255),
-	dateTime TIMESTAMP,
+	timeFrom VARCHAR(255),
+	timeTo VARCHAR(255),
 	userId VARCHAR(255),
 	email VARCHAR(255),
 	companyName VARCHAR(255),
-	contact VARCHAR(255)
+	contact VARCHAR(255),
+	target_file VARCHAR(255)
 	)";
 // $sql = "DROP TABLE IF EXISTS events";
 mysqli_query($conn, $sql);

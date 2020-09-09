@@ -1,5 +1,10 @@
 <?php include 'head.php';
-$type = $_GET["type"];
+$userId = $_GET["userId"];
+
+//get data
+$data1 = mysqli_query($conn, "SELECT * FROM events WHERE userId = '$userId'");
+$events = mysqli_fetch_assoc($data1);
+
 
 ?>
 
@@ -14,7 +19,7 @@ $type = $_GET["type"];
                 <div class="col-lg-6">
                     <!-- Section Tittle -->
                     <div class="section-tittle text-center mb-70">
-                        <h2><?php echo $_GET["type"] ?></h2>
+                        <h2><?php echo $events["companyName"] ?></h2>
                     </div>
                 </div>
             </div>
@@ -22,7 +27,7 @@ $type = $_GET["type"];
 
                 <?php
 
-                $data = mysqli_query($conn, "SELECT * FROM events WHERE type like '$type'");
+                $data = mysqli_query($conn, "SELECT * FROM events WHERE userId = '$userId'");
 
                 while ($result = mysqli_fetch_assoc($data)) {
 
@@ -34,9 +39,9 @@ $type = $_GET["type"];
                                 <div class="blog-cap">
                                     <span class="color1">From: ' . $result["timeFrom"] . '</span> |
                                     <span class="color1">To: ' . $result["timeTo"] . '</span>
-                                    <h4>Name: ' . $result["name"] . '</h4>
-                                    <h6>By: ' . $result["companyName"] . '</h6>
-                                    <a href="moreDetails.php?eventId=' . $result["eventId"] . '&type=type=' . $type . '" class="genric-btn primary-border radius">Open</a>
+                                    <h4>' . $result["type"] . '</h4>
+                                    <h5>Name: ' . $result["name"] . '</h5>
+                                    <a href="moreDetails.php?eventId=' . $result["eventId"] . '&type=type=' . $result["type"] . '" class="genric-btn primary-border radius">Open</a>
                                     ';
 
                     if ($result["userId"] == $_COOKIE["userId"]) {

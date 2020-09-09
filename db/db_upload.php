@@ -8,26 +8,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       isset($_POST["name"]) &&
       isset($_POST["description"]) &&
       isset($_POST["address"]) &&
-      isset($_POST["dateTime"]) &&
+      isset($_POST["timeFrom"]) &&
+      isset($_POST["timeTo"]) &&
 
       !empty($_POST["type"]) &&
       !empty($_POST["name"]) &&
       !empty($_POST["description"]) &&
       !empty($_POST["address"]) &&
-      !empty($_POST["dateTime"])
+      !empty($_POST["timeFrom"]) &&
+      !empty($_POST["timeTo"])
     ) {
 
       $type = $_POST["type"];
       $name = $_POST["name"];
       $description = $_POST["description"];
       $address = $_POST["address"];
-      $dateTime = $_POST["dateTime"];
+      $timeFrom = $_POST["timeFrom"];
+      $timeTo = $_POST["timeTo"];
       $userId = $_COOKIE["userId"];
       $email = $_COOKIE["email"];
       $companyName = $_COOKIE["name"];
       $contact = $_COOKIE["contact"];
 
-      $timestamp = date("Y-m-d H:i:s", strtotime($dateTime));
+      // $timestamp = date("Y-m-d H:i:s", strtotime($dateTime));
 
       //pImages Validation
       $target_dir = "uploads/";
@@ -76,21 +79,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         name,
         description,
         address,
-        dateTime,
+        timeFrom,
+        timeTo,
         userId,
         email,
         companyName,
-        contact
+        contact,
+        target_file
         ) VALUES (
           '$type',
           '$name',
           '$description',
           '$address',
-          '$dateTime',
+          '$timeFrom',
+          '$timeTo',
           '$userId',
           '$email',
           '$companyName',
-          '$contact'
+          '$contact',
+          '$target_file'
           )";
 
         if (mysqli_query($conn, $sql)) {

@@ -130,7 +130,9 @@
 
 <script>
 	$(document).ready(function() {
-		$('.toast').toast('show');
+		$(".toast-close").click(function() {
+			$('.toast').hide();
+		});
 	});
 </script>
 

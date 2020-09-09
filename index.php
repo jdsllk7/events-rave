@@ -19,8 +19,15 @@
                                 </p>
                                 <!-- Hero-btn -->
                                 <div class="hero__btn">
-                                    <a href="industries.php" class="btn hero-btn" data-animation="fadeInLeft" data-delay=".8s">PLAN AN EVENT</a>
-                                    <a href="industries.php" class="btn hero-btn" data-animation="fadeInLeft" data-delay=".8s">SIGN UP AS A VENDOR</a>
+                                    <a href="upload.php" class="btn hero-btn" data-animation="fadeInLeft" data-delay=".8s">PLAN AN EVENT</a>
+                                    <?php
+                                    if (!isset($_COOKIE["userId"])) {
+                                        echo '
+                                        <a href="signup.php" class="btn hero-btn" data-animation="fadeInLeft" data-delay=".8s">SIGN UP AS A VENDOR</a>
+                                        ';
+                                    }
+                                    ?>
+
                                 </div>
                             </div>
                         </div>
@@ -45,54 +52,122 @@
                 </div>
             </div>
             <div class="row">
-                <div class=" col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-services text-center mb-30">
-                        <div class="services-ion">
-                            <span class="flaticon-restaurant"></span>
-                        </div>
-                        <div class="services-cap">
-                            <h5>Venues</h5>
-                            <p>
-                                Some text...
-                            </p>
-                        </div>
-                        <a href="viewCards.php" class="genric-btn primary-border radius">View</a>
-                    </div>
-                </div>
+
+                <?php
+
+                $countVenues = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM events WHERE type like 'Venue'"));
+                $countDecor = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM events WHERE type like 'Decor'"));
+                $countCatering = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM events WHERE type like 'Catering'"));
+
+
+                ?>
+
+
                 <div class=" col-lg-4 col-md-6 col-sm-6">
                     <div class="single-services text-center mb-30">
                         <div class="services-ion">
                             <span class="flaticon-tools-and-utensils-1"></span>
                         </div>
                         <div class="services-cap">
-                            <h5>Catering</h5>
+                            <h5>Venues - <?php echo $countVenues; ?></h5>
                             <p>
                                 Some text...
                             </p>
                         </div>
-                        <a href="viewCards.php" class="genric-btn primary-border radius">View</a>
+                        <?php
+                        if ($countVenues > 0) {
+                            echo '<a href="viewCards.php?type=Venues" class="genric-btn primary-border radius">View</a>';
+                        }
+                        ?>
                     </div>
                 </div>
+
                 <div class=" col-lg-4 col-md-6 col-sm-6">
                     <div class="single-services text-center mb-30">
                         <div class="services-ion">
-                            <span class="flaticon-restaurant"></span>
+                            <span class="flaticon-tools-and-utensils-1"></span>
                         </div>
                         <div class="services-cap">
-                            <h5>Decor</h5>
+                            <h5>Catering - <?php echo $countCatering; ?></h5>
                             <p>
                                 Some text...
                             </p>
                         </div>
-                        <a href="viewCards.php" class="genric-btn primary-border radius">View</a>
+                        <?php
+                        if ($countCatering > 0) {
+                            echo '<a href="viewCards.php?type=Catering" class="genric-btn primary-border radius">View</a>';
+                        }
+                        ?>
                     </div>
                 </div>
+
+                <div class=" col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-services text-center mb-30">
+                        <div class="services-ion">
+                            <span class="flaticon-tools-and-utensils-1"></span>
+                        </div>
+                        <div class="services-cap">
+                            <h5>Decor - <?php echo $countDecor; ?></h5>
+                            <p>
+                                Some text...
+                            </p>
+                        </div>
+                        <?php
+                        if ($countDecor > 0) {
+                            echo '<a href="viewCards.php?type=Decor" class="genric-btn primary-border radius">View</a>';
+                        }
+                        ?>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
     <!-- Our Services End -->
 
-    
+
+
+    <!--? Our Services Start -->
+    <div class="our-services section-padding30">
+        <div class="container">
+            <div class="row justify-content-sm-center">
+                <div class="cl-xl-7 col-lg-8 col-md-10">
+                    <!-- Section Tittle -->
+                    <div class="section-tittle text-center mb-70">
+                        <h2>Browse Profiles</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <?php
+
+                $data = mysqli_query($conn, "SELECT * FROM users");
+
+                while ($result = mysqli_fetch_assoc($data)) {
+
+
+
+                    echo '<div class=" col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-services active text-center mb-30">
+                                <div class="services-ion">
+                                    <span class="flaticon-restaurant"></span>
+                                </div>
+                                <h5>' . $result["name"] . '</h5>
+                                <span class="contact-info__icon"><i class="ti-email"></i></span> ' . $result["email"] . ' <br><br>
+                                <span class="contact-info__icon"><i class="ti-tablet"></i></span> ' . $result["contact"] . ' <br><br>
+                                <a href="viewProfile.php?userId=' . $result["userId"] . '" class="genric-btn primary-border radius">View</a>
+                            </div>
+                        </div>';
+                }
+                ?>
+
+            </div>
+        </div>
+    </div>
+    <!-- Our Services End -->
+
+
 </main>
 
 <?php include 'footer.php'; ?>

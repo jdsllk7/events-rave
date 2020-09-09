@@ -26,18 +26,18 @@ if (!isset($_COOKIE["userId"])) {
                                         <label for="">Event Type</label>
                                         <br>
                                         <select class="form-control" name="type" style="width: 300px;" required>
-                                            <option>- Select Type -</option>
-                                            <option>Venue</option>
-                                            <option>Decor</option>
-                                            <option>Catering</option>
+                                            <option value="" selected>- Select Type -</option>
+                                            <option value="Venue">Venue</option>
+                                            <option value="Decor">Decor</option>
+                                            <option value="Catering">Catering</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="">Name</label>
-                                        <input class="form-control" name="name" value="<?php echo $_COOKIE["name"]; ?>" type="text" required>
+                                        <label for="">Title</label>
+                                        <input class="form-control" name="name" value="" type="text" required>
                                     </div>
                                 </div>
 
@@ -62,10 +62,17 @@ if (!isset($_COOKIE["userId"])) {
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="">Date & Time (Optional)</label>
-                                        <input class="form-control" name="dateTime" type="datetime-local">
+                                        <label for="">Open From</label>
+                                        <input class="form-control" name="timeFrom" type="time">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="">To</label>
+                                        <input class="form-control" name="timeTo" type="time">
                                     </div>
                                 </div>
 

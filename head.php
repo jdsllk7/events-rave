@@ -111,7 +111,7 @@ include 'db/connect.php';
 				<div class="toast-header">
 					<span class="mdi mdi-message mdi-18px"></span>
 					<strong class="mr-auto ml-2">Alert</strong>
-					<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					<button type="button" class="ml-2 mb-1 toast-close close" data-dismiss="toast" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -126,7 +126,7 @@ include 'db/connect.php';
 				<div class="toast-header" style="padding: 5px;>
 					<span class="mdi mdi-message mdi-18px"></span>
 					<strong class="mr-auto ml-2">Alert</strong>
-					<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					<button type="button" class="ml-2 mb-1 toast-close close" data-dismiss="toast" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
